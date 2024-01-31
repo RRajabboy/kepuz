@@ -5,11 +5,13 @@
 body {
     --text: #000;
     --bg: #fff;
-    --border: #00000018;
+    --backEffect: #00000018;
+    --border: #0003;
     &.dark-active {
         --text: #fff;
         --bg: #1e293b;
-        --border: #ffffff18;
+        --backEffect: #ffffff18;
+        --border: #fff3;
     }
     background-color: var(--bg);
     transition: .2s ease;
@@ -28,14 +30,18 @@ body {
                 align-items: center;
                 justify-content: center;
                 aspect-ratio: 1;
-                width: 40px;
+                width: 50px;
                 cursor: pointer;
                 border-radius: 50%;
                 transition: 0.2s ease;
                 &:hover {
-                    background: var(--border);
+                    background: var(--backEffect);
                 }
-                * {
+                > [name="sun"] {
+                    scale: 1.4;
+                }
+                > * {
+                    scale: 1.25;
                     fill: var(--text);
                 }
             }
@@ -47,7 +53,10 @@ body {
         }
         tbody {
             tr {
-                border-bottom: 1.5px solid var(--border);
+                border-bottom: 1.5px solid var(--backEffect);
+                &:hover {
+                    background-color: var(--backEffect);
+                }
                 td {
                     padding-top: 10px;
                     padding-bottom: 10px;
