@@ -1,0 +1,49 @@
+.main-select {
+    background-color: var(--backEffect);
+    border-radius: 4px;
+    position: relative;
+    .select-name {
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;
+        * {
+            transition: .2s ease;
+        }
+    }
+    .drop {
+        padding-top: 10px;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        > .values {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden auto;
+            max-height: 350px;
+            &::-webkit-scrollbar {
+                background-color: var(--backEffect);
+                border-radius: 0 5px 5px 0;
+                width: 6px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--border);
+                border-radius: 0 5px 5px 0;
+            }
+            > span {
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: 5px 12px;
+                &:hover {
+                    background-color: var(--backEffect);
+                }
+                box-icon {
+                    background: #000;
+                }
+            }
+        }
+    }
+}

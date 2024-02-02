@@ -3,22 +3,39 @@
 @tailwind utilities;
 
 body {
-    --text: #000;
+    --text: #1e293b;
     --bg: #fff;
-    --backEffect: #00000018;
-    --border: #0003;
+    --backEffect: #1e293b18;
+    --border: #1e293b30;
     &.dark-active {
         --text: #fff;
         --bg: #1e293b;
         --backEffect: #ffffff18;
         --border: #fff3;
+        // background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTenj8bZfpy6RObvzGt4KvcFYu_VgDv7yIEtA&usqp=CAU') no-repeat center / cover;
+        background-attachment: fixed;
+        backdrop-filter: blur(20px);
+        min-height: 100vh;
     }
     background-color: var(--bg);
-    transition: .2s ease;
     color: var(--text);
+    transition: .2s ease;
+}
+
+input {
+    width: 100%;
+    padding: 5px 10px;
+    background-color: var(--backEffect);
+    outline: none;
+    border-radius: 4px;
+}
+
+box-icon {
+    fill: var(--text);
 }
 
 .container {
+    margin: 0 auto;
     nav {
         * {
             color: var(--text);
@@ -42,7 +59,6 @@ body {
                 }
                 > * {
                     scale: 1.25;
-                    fill: var(--text);
                 }
             }
         }
@@ -61,6 +77,27 @@ body {
                     padding-top: 10px;
                     padding-bottom: 10px;
                 }
+            }
+        }
+    }
+    .tabBar {
+        user-select: none;
+        > * {
+            background-color: var(--backEffect);
+            width: 35px;
+            aspect-ratio: 1;
+            border-radius: 6px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .1s ease;
+            cursor: pointer;
+            &:hover {
+                background-color: var(--border);
+            }
+            &:active {
+                scale: 105%;
             }
         }
     }

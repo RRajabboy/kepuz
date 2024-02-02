@@ -1,15 +1,16 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export default function useFetch(path) {
+export default function useFetch(path, param) {
     const [ data, setData ] = useState({})
     const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState("")
+    const [ params, setParams ] = useState(param || {})
 
-    const getData = async () => {
-        setLoading(true)
+    const getData = async (par, noloader) => {
+        setLoading(!noloader)
         try {
-            const fetched = await axios.get("https://kep.uz/api/problems/" + path)
+            const fetched = await axios.get("https://kep.uz/api/problems/" + path, { params: par || params })
             setData(fetched.data)
         } catch (error) {
             setError(error)
@@ -22,5 +23,10 @@ export default function useFetch(path) {
         getData()
     }, [])
 
-    return { data, loading, error }
+    const changeParams = (p, noLoading) => {
+        setParams(p)
+        getData(p, noLoading)
+    }
+
+    return { data, loading, error: false, refresh: getData, changeParams }
 }
