@@ -42,9 +42,8 @@ export default function Filter({ fetch }) {
 
   const changeHandler = (e) => {
     let { name, value } = e
-
-    console.log(filter);
     value = value === "" ? null : value
+
     setFilter(prev => {
       const isHasFilter = Object.keys(prev).length === 0 ? true : false
       const toPage = isHasFilter ? 1 : prev.page
@@ -54,11 +53,13 @@ export default function Filter({ fetch }) {
           [name]: value,
           page: toPage,
       }
-      navigate("/" + toPage)
-      changeParams(search)
-      
       return search
     })
+  }
+
+  const submit = () => {
+    navigate("/" + filter.page)
+    changeParams(filter)
   }
 
   return <m.div 
@@ -70,17 +71,23 @@ export default function Filter({ fetch }) {
       duration: 0.15,
     }}
   >
-    <label>
-      <span>Title</span>
-      <input type="text" name='title' onChange={(e) => changeHandler(e.target)} placeholder='Title' />
-    </label>
-    <label>
-      <span>Checker</span>
-      <Select selectName="Checker" setValue={changeHandler} name="has_checker" values={selectValues} />
-    </label>
-    <label>
-      <span>Solution</span>
-      <Select selectName="Solution" setValue={changeHandler} name="has_solution" values={selectValues} />
-    </label>
+    <div className="filter-items">
+      <label>
+        <span>Title</span>
+        <input type="text" name='title' onChange={(e) => changeHandler(e.target)} placeholder='Title' />
+      </label>
+      <label>
+        <span>Checker</span>
+        <Select selectName="Checker" setValue={changeHandler} name="has_checker" values={selectValues} />
+      </label>
+      <label>
+        <span>Solution</span>
+        <Select selectName="Solution" setValue={changeHandler} name="has_solution" values={selectValues} />
+      </label>
+    </div>
+    <div onClick={submit} className="bg-indigo-800/80 text-white mt-5 px-4 cursor-pointer py-1.5 flex  float-right rounded-md hover:bg-indigo-800/90 transition">
+      <span>Qidirish</span>
+      <box-icon name='search-alt-2' style={{fill: "white", transform: "scale(0.85)"}} size="sm"></box-icon>
+    </div>
   </m.div>
 }

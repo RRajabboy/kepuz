@@ -19,7 +19,10 @@ body {
     }
     background-color: var(--bg);
     color: var(--text);
-    transition: .2s ease;
+    transition: 150ms ease;
+    * {
+        transition: background-color 150ms ease;
+    }
 }
 
 input {
@@ -34,38 +37,65 @@ box-icon {
     fill: var(--text);
 }
 
-.container {
-    margin: 0 auto;
-    nav {
-        * {
-            color: var(--text);
-        }
-        .icons {
-            user-select: none;
-            > div {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                aspect-ratio: 1;
-                width: 50px;
-                cursor: pointer;
-                border-radius: 50%;
-                transition: 0.2s ease;
-                &:hover {
-                    background: var(--backEffect);
-                }
-                > [name="sun"] {
-                    scale: 1.4;
-                }
-                > * {
-                    scale: 1.25;
-                }
+nav {
+    * {
+        color: var(--text);
+    }
+    .icons {
+        user-select: none;
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            width: 50px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.2s ease;
+            &:hover {
+                background: var(--backEffect);
+            }
+            > [name="sun"] {
+                scale: 1.4;
+            }
+            > * {
+                scale: 1.25;
             }
         }
     }
+}
+
+.container {
+    margin: 0 auto;
     table {
         thead {
-            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: var(--bg);
+            box-shadow: 0 2px var(--border);
+            th {
+                cursor: pointer;
+                user-select: none;
+                &:hover {
+                    background: var(--backEffect);
+                    .sort box-icon {
+                        opacity: 1;
+                    }
+                }
+                &.active {
+                    .sort box-icon {
+                        opacity: 1;
+                    }
+                }
+                .sort {
+                    display: flex;
+                    box-icon {
+                        scale: 0.9;
+                        opacity: 0;
+                        transition: 0.1s ease;
+                    }
+                }
+            }
         }
         tbody {
             tr {

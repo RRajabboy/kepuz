@@ -31,39 +31,36 @@ function App() {
 	}
 
 
-	return <div className="flex flex-col min-h-[100vh]">
-		{ error && !data
-			&& 
-		<div className="w-full h-full flex flex-col justify-center items-center absolute">
-			<box-icon name='error' type="solid" size="lg"></box-icon>
-			<h1 className="text-2xl">Something went wrong!</h1>
-		</div>}
+	return <div className="flex flex-col h-[100vh]">
 
-		<div className="container flex flex-col">
-			<nav className="py-4 flex justify-between items-center">
-				<h1 className="text-2xl font-semibold">Kep.uz problems</h1>
-				<div className="icons flex">
-					<div onClick={() => refresh()}>
-						<box-icon name='revision'></box-icon>
-					</div>
-					<div onClick={changeTheme}>
-						<box-icon name={theme ? "sun" : "moon"} animation={theme ? "spin" : ""}></box-icon>
-					</div>
-					<div onClick={() => setActiveFilter(prev => !prev)}>
-						<box-icon name='filter-alt'></box-icon>
-					</div>
+		<nav className="container py-4 flex justify-between items-center">
+			<h1 className="text-2xl font-semibold">Kep.uz problems</h1>
+			<div className="icons flex">
+				<div onClick={() => refresh()}>
+					<box-icon name='revision'></box-icon>
 				</div>
-			</nav>
-		</div>
+				<div onClick={changeTheme}>
+					<box-icon name={theme ? "sun" : "moon"} animation={theme ? "spin" : ""}></box-icon>
+				</div>
+				<div onClick={() => setActiveFilter(prev => !prev)}>
+					<box-icon name='filter-alt'></box-icon>
+				</div>
+			</div>
+		</nav>
 		
 		<AnimatePresence>
             { activeFilter && <Filter fetch={fetch} />}
         </AnimatePresence>
 
-		{ loading
-			&& 
+		{ loading && 
 		<div className="w-full flex-1 flex justify-center">
 			<Loader />
+		</div>}
+
+		{ error && !data && 
+		<div className="w-full flex-1 flex flex-col justify-center items-center">
+			<box-icon name='error' type="solid" size="lg"></box-icon>
+			<h1 className="text-2xl">Something went wrong!</h1>
 		</div>}
 
 		{ !loading && !error && <Table fetch={fetch} theme={theme} activeFilter={activeFilter} /> }
