@@ -146,11 +146,11 @@ export default function Table({ fetch }) {
             <div className="prev mr-2" onClick={() => data.page > 1 && tabBar((data.page - 1))}>
                 <box-icon name='chevron-left' size="md"></box-icon>
             </div>
-            { data.page > 2 && <span onClick={() => tabBar(data.page - 2)}>..</span>}
+            { data.page > 3 && <span onClick={() => tabBar(data.page - 3)}><box-icon type='solid' name='chevrons-left'></box-icon></span>}
             { data.page !== 1 && <span onClick={() => tabBar(data.page - 1)}>{String(data.page - 1)}</span>}
-            <span>{data.page}</span>
+            <span className='thisPage'>{data.page}</span>
             { data.page < data.pagesCount && <span onClick={() => tabBar(data.page + 1)}>{data.page + 1}</span>}
-            { data.page + 1 < data.pagesCount && <span onClick={() => tabBar(data.page + 2)}>..</span>}
+            { data.page + 1 < data.pagesCount && <span onClick={() => tabBar(data.page + 3)}><box-icon type='solid' name='chevrons-right'></box-icon></span>}
             <div className="next ml-2" onClick={() => data.page < data.pagesCount && tabBar((data.page + 1))}>
                 <box-icon name='chevron-right' size="md"></box-icon>
             </div>

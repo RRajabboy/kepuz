@@ -129,6 +129,10 @@ nav {
             &:active {
                 scale: 105%;
             }
+            &.thisPage {
+                background-color: var(--text);
+                color: white;
+            }
         }
     }
 }
