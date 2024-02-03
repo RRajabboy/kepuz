@@ -28,5 +28,5 @@ export default function useFetch(path, param) {
         getData(p, noLoading)
     }
 
-    return { data, loading, error: false, refresh: getData, changeParams }
+    return { data, loading, error, refresh: getData, params, changeParams }
 }

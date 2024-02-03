@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import useFetch from "./hook/useFetch";
 import Loader from "./components/Loader";
 import Table from "./screens/table";
+import { AnimatePresence } from "framer-motion";
+import Filter from "./components/Filter";
 
 function App() {
 	
@@ -10,10 +12,10 @@ function App() {
 	const defultParams = pathname !== "/" && { page: pathname.replace("/", "")}
 
     const fetch = useFetch("",  defultParams)
-	const { loading, error, refresh } = fetch
+	const { data, loading, error, refresh } = fetch
 
 	const [ theme, setTheme ] = useState(JSON.parse(localStorage.getItem("dark")))
-	const [ activeFilter, setActiveFilter ] = useState(true)
+	const [ activeFilter, setActiveFilter ] = useState(false)
 	
 
 	useEffect(() => {
@@ -29,17 +31,11 @@ function App() {
 	}
 
 
-	return <>
-		{ loading 
-			&& 
-		<div className="w-full h-full flex justify-center absolute">
-			<Loader />
-		</div>}
-
-		{ error && !loading 
+	return <div className="flex flex-col min-h-[100vh]">
+		{ error && !data
 			&& 
 		<div className="w-full h-full flex flex-col justify-center items-center absolute">
-			<box-icon name='bug-alt' size="lg"></box-icon>
+			<box-icon name='error' type="solid" size="lg"></box-icon>
 			<h1 className="text-2xl">Something went wrong!</h1>
 		</div>}
 
@@ -59,9 +55,19 @@ function App() {
 				</div>
 			</nav>
 		</div>
+		
+		<AnimatePresence>
+            { activeFilter && <Filter fetch={fetch} />}
+        </AnimatePresence>
+
+		{ loading
+			&& 
+		<div className="w-full flex-1 flex justify-center">
+			<Loader />
+		</div>}
 
 		{ !loading && !error && <Table fetch={fetch} theme={theme} activeFilter={activeFilter} /> }
-	</>
+	</div>
 	}
 
 export default App;

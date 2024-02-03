@@ -34,23 +34,30 @@ export default function Select({ selectName, values, name, setValue }) {
     return <m.div className='main-select' ref={HoverOutSide(setOpenValue)}>
         <div className="select-name">
             <p>{ selectValue ? selectValue : <span className="text-slate-400">{selectName}</span>}</p>
-            <div className={"flex " + (openValue ? "rotate-180" : "")}><box-icon name='chevron-down'></box-icon></div>
+            {
+                !selectValue ?
+                    <div className={"flex " + (openValue ? "rotate-180" : "")}>
+                        <box-icon name='chevron-down'></box-icon>
+                    </div>
+                :
+                    <div className="flex cursor-pointer" onClick={() => selectHandler("", null)}>
+                        <box-icon name='x'></box-icon>
+                    </div>
+            }
             
         </div>
         <AnimatePresence>
             { openValue && <m.div className="drop" animate={motionSetting.animate} initial={motionSetting.initial} exit={{...motionSetting.initial, ...motionSetting.exit}}>
                 <div className="values shadow-lg divide-y-[1px] divide-slate-400/30">{
                     values.map((item, i) => {
-                        return item.value === selectValue 
+                        return item.title === selectValue 
                         ? 
-                        <span key={i}>
+                        <span key={i} className="flex justify-between overflow-hidden">
                             <span>{item.title}</span>
-                            <div className="absolute flex right-3">
-                                <box-icon name='check'></box-icon>
-                            </div>
+                            <box-icon name='check'></box-icon>
                         </span>
                         : 
-                        <span onClick={() => selectHandler(item)}>{item.title}</span>
+                        <span key={i} onClick={() => selectHandler(item)}>{item.title}</span>
                     })
                 }</div>
             </m.div> }

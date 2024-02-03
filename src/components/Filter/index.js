@@ -3,6 +3,7 @@ import { motion as m } from 'framer-motion'
 import Select from '../Select'
 
 import './index.scss'
+import { useNavigate } from 'react-router-dom'
 
 const selectValues = [
   {
@@ -36,30 +37,32 @@ const motionSetting = {
 export default function Filter({ fetch }) {
 
   const { changeParams } = fetch
+  const navigate = useNavigate()
   const [ filter, setFilter ] = useState({})
 
-  const delayedParams = () => {
-    const timer = setTimeout(() => {
-        changeParams(filter, true)
-        console.log("chagdg");
-    }, 1000)
-    return () => clearTimeout(timer)
-  }
-
   const changeHandler = (e) => {
-    const { name, value } = e
+    let { name, value } = e
+
+    console.log(filter);
+    value = value === "" ? null : value
     setFilter(prev => {
+      const isHasFilter = Object.keys(prev).length === 0 ? true : false
+      const toPage = isHasFilter ? 1 : prev.page
+
       const search = {
           ...prev,
-          [name]: value
+          [name]: value,
+          page: toPage,
       }
-      delayedParams()
+      navigate("/" + toPage)
+      changeParams(search)
+      
       return search
     })
   }
 
   return <m.div 
-    className="top-filter"
+    className="top-filter container"
     animate={motionSetting.animate}
     initial={motionSetting.initial}
     exit={motionSetting.exit}

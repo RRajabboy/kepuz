@@ -33,7 +33,6 @@
                 border-radius: 0 5px 5px 0;
             }
             > span {
-                position: relative;
                 display: flex;
                 align-items: center;
                 padding: 5px 12px;
@@ -41,7 +40,7 @@
                     background-color: var(--backEffect);
                 }
                 box-icon {
-                    background: #000;
+                    font-size: 16px;
                 }
             }
         }
